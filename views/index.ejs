@@ -1,0 +1,54 @@
+<html>
+    <%- include('./partials/head.ejs') %>
+    <body>
+        <%- include('./partials/nav.ejs') %>
+        <section id="header">
+            <div class="text-center">
+                <h3 class="heading text-2xl font-bold pt-8 text-gray-600">Recent Posts</h3>
+                <p class="text-sm font-medium pt-3">All recent blog posts</p>
+            </div>
+        </section>
+
+        <section id="blog pt-12" class="pt-12">
+            <div class="blog-post grid grid-cols-3 gap-3 px-16">
+                <% if(blogs.length > 0) { 
+                    blogs.forEach(blog => { %>
+                        <div class="max-w-sm rounded overflow-hidden shadow-lg rounded-lg drop-shadow-2xl">
+                        <img class="w-full" src="/img/jare.jpg" alt="Sunset in the mountains">
+                        <div class="px-6 py-4">
+                          <div class="font-bold text-xl mb-2"><%= blog.title %></div>
+                          <p class="text-gray-700 text-base">
+                            <%= blog.description %>
+                          </p>
+                        </div>
+                        <div class="px-6 pt-4 pb-2">
+                            <% for(let i = 0; i < blog.tags.length; i++) { %>
+                          <a href="/blog/<%=blog.tags[i] %>"><span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"># <%= blog.tags[i] %></span></a>
+                          <% } %>
+                          <a href="/blog/<%=blog.id%>" class="bg-cyan-500 px-2 py-2 rounded-lg text-white hover:bg-cyan-600 shadow-lg shadow-cyan-500/50 float-right mb-3">Read Post</a>
+                          <button value="<%= blog.id %>" id="butt">Delete</button>
+                        </div>
+                      </div>
+                    <%})
+               } %>
+               
+                
+            </div>
+        </section>
+
+        <script>
+            const Delete = document.getElementById('butt')
+
+            Delete.addEventListener('click', async (e) => {
+                const endpoint = `/blog/${Delete.value}`;
+
+              fetch(endpoint, {
+                    method : 'DELETE'
+                })
+                .then((response) => response.json())
+                .then((data) => console.log(data))
+                .catch((err) => console.log(err))
+            })
+        </script>
+    </body>
+</html>

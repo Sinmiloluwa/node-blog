@@ -1,0 +1,22 @@
+#header .heading{
+    font-family: 'Roboto';
+    font-size: 60px;
+}
+
+.socials li {
+    list-style: none;
+    display: inline;
+}
+
+.links li {
+    list-style: none;
+    display: inline;
+}
+
+
+.links a:hover{
+    border-bottom: 5px solid #06b6d480;
+    border-bottom-width: 2px;
+    transition: ease-in-out;
+    transition-duration: 300ms;
+}
